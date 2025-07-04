@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Button?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.chart.CategoryAxis?>
+
+<AnchorPane prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.memory.monitor.MemoryMonitorController">
+    <VBox spacing="10" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <padding>
+            <Insets top="10" right="10" bottom="10" left="10"/>
+        </padding>
+
+        <GridPane hgap="10" vgap="5">
+            <Label text="Heap Used:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+            <Label fx:id="heapUsedLabel" text="-" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+            <Label text="Heap Committed:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+            <Label fx:id="heapCommittedLabel" text="-" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+            <Label text="Heap Max:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+            <Label fx:id="heapMaxLabel" text="-" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+            <Label text="Non-Heap Used:" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+            <Label fx:id="nonHeapUsedLabel" text="-" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+            <Label text="Non-Heap Committed:" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+            <Label fx:id="nonHeapCommittedLabel" text="-" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+
+            <Label text="GC Count:" GridPane.rowIndex="0" GridPane.columnIndex="4"/>
+            <Label fx:id="gcCountLabel" text="-" GridPane.rowIndex="0" GridPane.columnIndex="5"/>
+            <Label text="GC Time:" GridPane.rowIndex="1" GridPane.columnIndex="4"/>
+            <Label fx:id="gcTimeLabel" text="-" GridPane.rowIndex="1" GridPane.columnIndex="5"/>
+            <Label text="Alloc Rate:" GridPane.rowIndex="2" GridPane.columnIndex="4"/>
+            <Label fx:id="allocationRateLabel" text="-" GridPane.rowIndex="2" GridPane.columnIndex="5"/>
+        </GridPane>
+
+        <HBox spacing="10" VBox.vgrow="ALWAYS">
+            <LineChart fx:id="heapLineChart" title="Heap Memory Usage (MB)" prefHeight="300" prefWidth="480" HBox.hgrow="ALWAYS">
+                <xAxis><NumberAxis label="Time (s)"/></xAxis>
+                <yAxis><NumberAxis label="Memory (MB)"/></yAxis>
+            </LineChart>
+
+            <BarChart fx:id="nonHeapBarChart" title="Non-Heap Memory Usage (MB)" prefHeight="300" prefWidth="480" HBox.hgrow="ALWAYS">
+                <xAxis><CategoryAxis label="Category"/></xAxis>
+                <yAxis><NumberAxis label="Memory (MB)"/></yAxis>
+            </BarChart>
+        </HBox>
+
+        <HBox spacing="10" VBox.vgrow="ALWAYS">
+            <BarChart fx:id="memoryUsageBarChart" title="Current Memory Usage (MB)" prefHeight="300" prefWidth="480" HBox.hgrow="ALWAYS">
+                <xAxis><CategoryAxis label="Memory Type"/></xAxis>
+                <yAxis><NumberAxis label="Memory (MB)"/></yAxis>
+            </BarChart>
+
+            <LineChart fx:id="allocationRateChart" title="Memory Allocation Rate (MB/s)" prefHeight="300" prefWidth="480" HBox.hgrow="ALWAYS">
+                <xAxis><NumberAxis label="Time (s)"/></xAxis>
+                <yAxis><NumberAxis label="Rate (MB/s)"/></yAxis>
+            </LineChart>
+        </HBox>
+
+        <Label text="Garbage Collection Events &amp; Log:"/>
+        <TextArea fx:id="gcLogTextArea" editable="false" prefHeight="100" VBox.vgrow="NEVER"/>
+
+        <HBox alignment="CENTER" spacing="10">
+            <Button text="Start Monitor" onAction="#startMonitoring"/>
+            <Button text="Stop Monitor" onAction="#stopMonitoring"/>
+        </HBox>
+    </VBox>
+</AnchorPane>
